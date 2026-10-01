@@ -1,21 +1,18 @@
 -- HD2-Addon: mods/codex/s11_solo_spear
--- S-11 Speargun Solo Enhanced Menu v1.3.0
+-- S-11 Speargun Solo Enhanced Menu v1.4.0
 --
--- Changes on Steam build 25480438 / EXE 1.8.46015.0:
---   Direct damage       650 -> 1800
---   Durable damage      275 -> 1800
---   Armor penetration   AP5 -> AP6 at all impact angles
---   Spare rounds        12 -> 24
---   S-11 gas profile is promoted to MK2: gas duration 6 -> 10 s and confusion 5 -> 9 s. Other gas weapons are unaffected. Reload remains unchanged.
---
+-- Steam build 25480438 / EXE 1.8.46015.0.
+-- Presets: vanilla 650/275 AP5 spare12 gas6s/confusion5s;
+-- medium 850/400 AP5 spare16 vanilla gas; high 1800/1800 AP6 spare24 gas10s/confusion9s.
+-- Radius and reload are unchanged.
 -- Requires Bingus Shared Loader v18+ and Mod Options Menu v1.1 / API 1.
--- Values are configurable through ESC > MODS; defaults match v1.2.0.
+-- Three presets through ESC > MODS. First use defaults to vanilla; radius and reload unchanged.
 
 local MOD = {
     id = 'mods/codex/s11_solo_spear',
     global = 'CodexS11SoloSpear',
     title = 'S-11 Speargun Solo Enhanced',
-    version = '1.3.0',
+    version = '1.4.0',
     author = 'Codex',
     log = 'S11SoloSpear.log',
     targets = {
@@ -23,30 +20,30 @@ local MOD = {
             label = 'impact damage and penetration', table = 0xE0A72CF0, stride = 76,
             row_id = 63,
             edits = {
-                { offset = 4, kind = 'u32', value = 1800, max = 100000, expected = 650 },
-                { offset = 8, kind = 'u32', value = 1800, max = 100000, expected = 275 },
-                { offset = 12, kind = 'u32', value = 6, max = 100, expected = 5 },
-                { offset = 16, kind = 'u32', value = 6, max = 100, expected = 5 },
-                { offset = 20, kind = 'u32', value = 6, max = 100, expected = 5 },
-                { offset = 24, kind = 'u32', value = 6, max = 100, expected = 5 },
-                { offset = 44, kind = 'u32', value = 43, max = 100, expected = 42 },
-                { offset = 52, kind = 'u32', value = 45, max = 100, expected = 44 },
+                { offset = 4, kind = 'u32', value = 650, max = 100000, expected = 650 },
+                { offset = 8, kind = 'u32', value = 275, max = 100000, expected = 275 },
+                { offset = 12, kind = 'u32', value = 5, max = 100, expected = 5 },
+                { offset = 16, kind = 'u32', value = 5, max = 100, expected = 5 },
+                { offset = 20, kind = 'u32', value = 5, max = 100, expected = 5 },
+                { offset = 24, kind = 'u32', value = 5, max = 100, expected = 5 },
+                { offset = 44, kind = 'u32', value = 42, max = 100, expected = 42 },
+                { offset = 52, kind = 'u32', value = 44, max = 100, expected = 44 },
             },
         },
         {
             label = 'extended gas and confusion duration', table = 0xE0A72CF0, stride = 76,
             row_id = 64,
             edits = {
-                { offset = 44, kind = 'u32', value = 43, max = 100, expected = 42 },
-                { offset = 52, kind = 'u32', value = 45, max = 100, expected = 44 },
+                { offset = 44, kind = 'u32', value = 42, max = 100, expected = 42 },
+                { offset = 52, kind = 'u32', value = 44, max = 100, expected = 44 },
             },
         },
         {
             label = 'spare rounds', table = 0xFB8D88A3, stride = 160,
             entity = { hi = 0x3828E205, lo = 0x1AA9E897 },
             edits = {
-                { offset = 144, kind = 'u32', value = 24, max = 1000 },
-                { offset = 148, kind = 'u32', value = 24, max = 1000 },
+                { offset = 144, kind = 'u32', value = 12, max = 1000 },
+                { offset = 148, kind = 'u32', value = 12, max = 1000 },
             },
         },
     },
@@ -606,66 +603,39 @@ local function enforce()
     sites = kept
 end
 
--- Native Mod Options Menu API 1. Polling tolerates either addon load order.
-local CONFIG = {damage=1800, durable=1800, ap=6, spare=24, gas=2}
+-- Native Mod Options Menu API 1: three presets, baseline on first use.
+local PRESETS = {
+    {damage=650, durable=275, ap=5, spare=12, gas=1},
+    {damage=850, durable=400, ap=5, spare=16, gas=1},
+    {damage=1800, durable=1800, ap=6, spare=24, gas=2},
+}
+local CONFIG = PRESETS[1]
 local config_dirty = true
 local menu_registered = false
-local registered_rows = {}
 local menu_retry = 0
-local MENU_ROWS = {
-    {'damage', {type='slider', label='直击伤害', min=0, max=10000, step=50, default=1800,
-        description='原版 650；强化默认 1800。应用后修改 S-11 鱼叉直击伤害。'}},
-    {'durable', {type='slider', label='耐久伤害', min=0, max=10000, step=25, default=1800,
-        description='原版 275；强化默认 1800。影响对高耐久部位的伤害。'}},
-    {'ap', {type='slider', label='穿甲等级', min=1, max=10, step=1, default=6,
-        description='原版 AP5；强化默认 AP6。统一设置四个命中角度的穿甲等级。'}},
-    {'spare', {type='slider', label='备用弹数', min=1, max=120, step=1, default=24,
-        description='原版 12；强化默认 24。已有角色的当前库存可能需要补给或重新部署才会更新。'}},
-    {'gas', {type='choice', label='毒气与混乱效果', choices={'原版：毒气 6 秒／混乱 5 秒', '强化：毒气 10 秒／混乱 9 秒'}, default=2,
-        description='切换游戏已有的原版或强化气体状态。仅改变 S-11 的状态引用；毒气每秒伤害不变。'}},
-}
-
-local function accept_setting(key, value, spec)
-    local number = tonumber(value)
-    if not number or number ~= number then return false end
-    local low, high = spec.min or 1, spec.max or #spec.choices
-    if number < low or number > high or number ~= math.floor(number) then return false end
-    if spec.step and (number-low) % spec.step ~= 0 then return false end
-    CONFIG[key] = number
+local function select_preset(value)
+    if type(value) ~= 'number' or value ~= math.floor(value) or not PRESETS[value] then return false end
+    CONFIG = PRESETS[value]
     config_dirty = true
+    log('S-11 preset = ' .. tostring(value))
     return true
 end
-
 local function menu_poll()
     if menu_registered or os.time() < menu_retry then return end
     menu_retry = os.time() + 2
     local menu = rawget(_G, 'ModOptionsMenu')
     if type(menu) ~= 'table' or menu.api ~= 1 or type(menu.register_option) ~= 'function'
         or type(menu.get) ~= 'function' or type(menu.on_change) ~= 'function' then return end
-    local all = true
-    for _, row in ipairs(MENU_ROWS) do
-        local key, spec = row[1], row[2]
-        if not registered_rows[key] then
-            spec.mod = 'S-11 鱼叉枪'
-            local id = 'codex.s11.' .. key
-            local ok, why = menu.register_option(id, spec)
-            if ok then
-                accept_setting(key, menu.get(id), spec)
-                local hooked = menu.on_change(id, function(value)
-                    if accept_setting(key, value, spec) then
-                        log('menu ' .. key .. ' = ' .. tostring(value))
-                    end
-                end)
-                registered_rows[key] = hooked == true
-                if not registered_rows[key] then all = false end
-            else
-                all = false
-                log('menu registration refused: ' .. id .. ': ' .. tostring(why))
-            end
-        end
-    end
-    menu_registered = all
-    if all then log('five S-11 options registered; saved values loaded') end
+    local id = 'codex.s11.preset.v1'
+    local ok, why = menu.register_option(id, {
+        type='choice', mod='S-11 鱼叉枪', label='强化档位',
+        choices={'一档：原版（默认）', '二档：适度强化', '三档：单刷强化'}, default=1,
+        description='原版：650／275伤害、AP5、12备弹。中档：850／400、AP5、16备弹。高档：1800／1800、AP6、24备弹及强化毒气。范围与换弹不变；备弹可能需补给或重新部署刷新。',
+    })
+    if not ok then log('preset registration refused: ' .. tostring(why)); return end
+    select_preset(menu.get(id))
+    menu_registered = menu.on_change(id, select_preset) == true
+    if menu_registered then log('three-tier preset menu registered') end
 end
 
 local function configure_targets()

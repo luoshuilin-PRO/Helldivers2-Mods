@@ -3,7 +3,7 @@
 -- HD2-Addon declaration is inserted by the builder as the very first line.
 local key='DemocracyProtects090'
 if rawget(_G,key) then return rawget(_G,key) end
-local public={version='0.2.0-menu',status='initializing'}
+local public={version='0.3.0-presets',status='initializing'}
 rawset(_G,key,public)
 local log_path=(os.getenv('LOCALAPPDATA') or os.getenv('TEMP') or '.')..'/DemocracyProtects090.log'
 local first=true
@@ -13,7 +13,7 @@ local function log(message)
         if f then f:write(os.date('%Y-%m-%d %H:%M:%S')..' '..tostring(message)..'\n'); f:close(); first=false end
     end)
 end
-log('Democracy Protects menu: 50/70/90 percent; actor refresh may require armor change')
+log('Democracy Protects menu: 50/80/90 percent; default vanilla 50; actor refresh may require armor change')
 local make_api=(function() -- Windows adapter. Reads and writes only this Lua VM's own process.
 -- Only private, non-executable data pages are eligible. Read-only pages are
 -- temporarily writable for each checked four-byte write, then restored.
@@ -164,8 +164,8 @@ local make_core=(function() return function(api,cfg)
         if not ok or not owned then
             restore();stopped=true;status('WRITE_FAILED_STOPPED');return true
         end
-        status('ACTIVE_'..tostring(cfg.percent or 90)..'_PERCENT_ACTOR_REFRESH_REQUIRED')
-        api.log('PASSIVE_SET address='..string.format('%.0f',p+64)..' probability='..tostring(cfg.percent or 90)..'%; re-equip armor or deploy to rebuild actor modifiers')
+        status('ACTIVE_'..tostring(cfg.percent or 50)..'_PERCENT_ACTOR_REFRESH_REQUIRED')
+        api.log('PASSIVE_SET address='..string.format('%.0f',p+64)..' probability='..tostring(cfg.percent or 50)..'%; re-equip armor or deploy to rebuild actor modifiers')
         return true
     end
     function s.step()
@@ -214,7 +214,7 @@ local make_core=(function() return function(api,cfg)
     end
     function s.set_probability(percent)
         if stopped then return false,'core stopped or unsupported build' end
-        local values={ [50]="\000\000\192\063", [70]="\154\153\217\063", [90]="\051\051\243\063" }
+        local values={ [50]="\000\000\192\063", [80]="\102\102\230\063", [90]="\051\051\243\063" }
         local bytes=values[percent]
         if not bytes then return false,'invalid probability' end
         if target then
@@ -244,13 +244,14 @@ exe_sha256="f5fee03dcfdb2e553a4752c283590950ac13316b376d8196aa556ff0400d5f06",
 header="\076\068\076\068\001\000\000\000\235\015\206\099\088\000\000\000\001\000\000\000\000\000\000\000",
 prefix="\009\000\000\000\003\176\182\073\218\009\111\170\076\147\174\097",
 original="\005\077\129\203\002\000\000\000\000\000\192\063\233\051\184\235\194\048\137\166\002\000\000\000\000\000\000\000\171\061\195\135",
-desired="\005\077\129\203\002\000\000\000\051\051\243\063\233\051\184\235\194\048\137\166\002\000\000\000\000\000\000\000\171\061\195\135",
+desired="\005\077\129\203\002\000\000\000\000\000\192\063\233\051\184\235\194\048\137\166\002\000\000\000\000\000\000\000\171\061\195\135",
 check_code="\072\131\236\040\243\015\016\021\088\205\138\001\139\202\186\005\077\129\203\065\184\003\000\000\000\232\210\139\108\000\072\133\192\116\035\243\015\016\072\008\015\087\192\015\047\200\118\022\131\120\004\002\117\016\243\015\092\013\162\186\138\001\015\040\193\072\131\196\040\195\015\040\194\072\131\196\040\195",
 check_rva=0x870ad0,
 }
  end)()
 local ok,api=pcall(make_api,log)
 if not ok then public.status='NATIVE_INIT_FAILED'; log(public.status..': '..tostring(api)); return public end
+cfg.percent=50
 local core=make_core(api,cfg)
 local menu_registered=false
 local menu_retry=0
@@ -260,12 +261,12 @@ local function menu_poll()
     local menu=rawget(_G,'ModOptionsMenu')
     if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function'
         or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
-    local id='codex.democracy.probability'
-    local ok,why=menu.register_option(id,{type='choice',mod='民主护佑',label='致命伤害存活概率',
-        choices={'50%（原版）','70%','90%'},default=3,
+    local id='codex.democracy.preset.v1'
+    local ok,why=menu.register_option(id,{type='choice',mod='民主护佑',label='存活概率档位',
+        choices={'一档：50%（原版／默认）','二档：80%','三档：90%'},default=1,
         description='只修改拥有民主护佑被动的护甲。应用后请重新装备护甲或部署，以刷新角色被动。'})
     if not ok then log('MENU_REFUSED '..tostring(why));return end
-    local percentages={50,70,90}
+    local percentages={50,80,90}
     local function select(value)
         local percent=percentages[value]
         if not percent then return end

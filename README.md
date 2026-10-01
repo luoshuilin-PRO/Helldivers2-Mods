@@ -1,87 +1,75 @@
-# Helldivers 2 自定义模组：游戏内设置版
+# Helldivers 2 自定义模组：三档预设版
 
-本仓库提供鱼叉枪和民主护佑两个完整模组安装包，以及对应源码和打包脚本。两个模组均提供中文菜单选项。通过 Mod Options Menu 在 ESC → MODS 中设置。
+提供鱼叉枪、民主护佑两个完整模组 ZIP，以及源码和打包脚本。首次加载均默认使用**一档原版**，在 ESC → MODS 中选择二档或三档，再点击 APPLY 应用。
 
 ## 下载
 
 | 模组 | 版本 | 下载 |
 | --- | --- | --- |
-| S-11 鱼叉枪单刷强化版（游戏内设置） | v1.3.0 | [下载 ZIP](downloads/S-11-Speargun-Solo-Enhanced-Menu-v1.3.0.zip) |
-| 民主护佑（50%／70%／90% 游戏内设置） | v0.2.0 | [下载 ZIP](downloads/Democracy-Protects-Menu-v0.2.0.zip) |
+| S-11 鱼叉枪（三档预设） | v1.4.0 | [下载完整ZIP](downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip) |
+| 民主护佑（三档预设） | v0.3.0 | [下载完整ZIP](downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip) |
 
-下载单个模组 ZIP 后交给 Arsenal 导入。GitHub 的 Code → Download ZIP 是整个源码仓库，不能直接作为模组安装包导入。
+下载单个模组 ZIP 后导入 Arsenal。Code → Download ZIP 下载的是源码仓库，不能直接作为模组安装包导入。
+
+## 鱼叉枪的三个档位
+
+| 参数 | 一档：原版（首次默认） | 二档：适度强化 | 三档：单刷强化 |
+| --- | --- | --- | --- |
+| 直击伤害 | 650 | 850 | 1800 |
+| 耐久伤害 | 275 | 400 | 1800 |
+| 四角度穿甲 | AP5 | AP5 | AP6 |
+| 备用弹数 | 12 | 16 | 24 |
+| 毒气状态持续时间 | 6秒 | 6秒 | 10秒 |
+| 混乱状态持续时间 | 5秒 | 5秒 | 9秒 |
+| 攻击范围、换弹机制 | 原版 | 原版 | 原版 |
+
+中档是本仓库选定的适度强化方案；高档沿用旧强化版的数值。毒气选项使用游戏已有状态引用，不修改毒气每秒伤害。未新增未经确认的范围参数。
+
+旧版的五项自由调节改为一个“强化档位”选项，选档后一起应用对应数值。备用弹数改变的是容量，已有角色的库存可能需要补给或重新部署刷新。
+
+## 民主护佑的三个档位
+
+| 档位 | 致命伤害存活概率 |
+| --- | --- |
+| 一档：原版（首次默认） | 50% |
+| 二档：提高存活概率 | 80% |
+| 三档：高存活概率 | 90% |
+
+仅作用于拥有民主护佑被动的护甲。选择并应用后请换下护甲再穿回，或重新部署，刷新角色被动。概率不代表每十次必定存活固定次数。
 
 ## 必需依赖
 
-以下依赖需要另外下载、启用和部署：
+- **[Bingus Shared Loader v18](https://github.com/CowboyBingus/BingusSharedLoader)**，作者 CowboyBingus。
+- **[Mod Options Menu v1.1](https://github.com/CowboyBingus/ModOptionsMenu)**，作者 CowboyBingus；[Nexus下载页面](https://www.nexusmods.com/helldivers2/mods/16625)。
 
-- **[Bingus Shared Loader v18](https://github.com/CowboyBingus/BingusSharedLoader)** — 作者 CowboyBingus。
-- **[Mod Options Menu v1.1](https://github.com/CowboyBingus/ModOptionsMenu)** — 作者 CowboyBingus；[Nexus 下载页面](https://www.nexusmods.com/helldivers2/mods/16625)。
+当前实现使用 Mod Options Menu v1.1 / API 1 接口。新版依赖的兼容性需要另行确认。依赖需单独下载，本仓库提供作者链接。
 
-本仓库中的版本是按 Mod Options Menu v1.1 / API 1 接口制作的。更新版是否兼容需要另外确认；目前没有核实 v1.3.4。依赖软件的下载包由作者提供，本仓库提供链接。
+## 安装和升级
 
-## 安装及加载顺序
+1. 关闭游戏，在 Arsenal 中停用两个模组的旧版。
+2. 导入所需的新 ZIP，启用 Mod Options Menu 和 Bingus Shared Loader。
+3. **Loader 放在加载顺序底部**，执行 Purge → Deploy。
+4. 启动游戏，在舰船或任务中打开 ESC → MODS，选择档位。
+5. 点击 APPLY 或按菜单提示按键（键盘 Tab）应用。
 
-1. 关闭游戏。
-2. 在 HDArsenal 中导入需要的模组，以及上述两个依赖。
-3. 停用同一模组的旧版或其他同时修改同一功能的版本。
-4. 启用模组和 Mod Options Menu，保持 **Bingus Shared Loader 位于加载顺序底部**。
-5. 执行 Purge → Deploy，启动游戏。
-6. 在舰船上或任务中打开 ESC → MODS，进入相应类别。修改后点击 APPLY，或按菜单提示的应用按键（键盘 Tab）。
+若 Megapack 已提供菜单，只启用一份 Mod Options Menu。
 
-如果 Vanilla Plus Megapack 已提供 Mod Options Menu，只启用一份菜单实现。
+采用新的菜单设置键，旧版强化数值不会迁移到新版：第一次加载显示一档原版。之后用户选定的档位仍会保存，下次启动恢复该档位；如需回到原版，选择一档并应用。
 
-## S-11 鱼叉枪 v1.3.0
-
-| 设置 | 范围 | 默认值 |
-| --- | --- | --- |
-| 直击伤害 | 0–10000，步长 50 | 1800 |
-| 耐久伤害 | 0–10000，步长 25 | 1800 |
-| 穿甲等级 | AP1–AP10，统一四个角度 | AP6 |
-| 备用弹数 | 1–120 | 24 |
-| 毒气效果 | 原版 / 强化 | 强化 |
-
-强化毒气使用游戏已有 MK2 状态引用：毒气 10 秒、混乱 9 秒；原版为 6 秒、5 秒。此选项没有提供毒气每秒伤害调节。换弹机制保持原有实现。
-
-伤害等设置会在运行时定位和复核数据后应用。备用弹数修改的是容量，已生成角色的现有库存可能需要补给或重新部署才能刷新。
-
-## 民主护佑 v0.2.0
-
-- 三档选择：50%（原版）、70%、90%（默认）。
-- 仅作用于带有民主护佑被动的护甲。
-- 应用后请换下护甲再穿回，或重新部署，刷新角色被动。
-- 概率不代表每 10 次致命伤害必定存活固定次数。
+设置保存于 `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\ModOptionsMenu.values`。
 
 ## 游戏版本与验证状态
 
-这些包沿用 Steam build **25480438** 的实现。民主护佑保留构建 / 哈希检查；鱼叉枪保留布局和原始数值检查。游戏更新后可能拒绝应用，或者需要重新适配。
+沿用 Steam build **25480438** 的支持范围。民主护佑保留构建与哈希检查；鱼叉枪保留数据布局和基准数值检查。游戏更新后可能拒绝应用，需要重新适配。
 
-现有包说明记录了此前的隔离脚本检查；这两个菜单版没有完成游戏内菜单与实战验证。这次发布整理没有修改 Lua 逻辑或 ZIP 内容，也没有新增兼容性测试。
+本次修改了菜单预设和默认值，保留原有运行时扫描、数据复核及写入机制。新三档版未进行游戏内验证，不能保证当前游戏构建中的实际表现；建议先在单人或获得同意的私人游戏中使用。
 
-建议仅在单人或获得同意的私人游戏中使用改变玩法数值的模组。
+日志：鱼叉枪位于上述 Logs 目录的 `S11SoloSpear.log`，民主护佑位于 `%LOCALAPPDATA%\DemocracyProtects090.log`。
 
-## 设置与日志
+## 源码与自行打包
 
-菜单设置保存于：
+- `mods/`：两个模组的最终 Lua、清单和说明。
+- `downloads/`：完整安装包；`SHA256SUMS.txt`：校验值。
+- 运行 `python scripts/build.py`，生成包位于 `build/`。
 
-```text
-%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\ModOptionsMenu.values
-```
-
-日志位置：
-
-- 鱼叉枪：上述 Logs 目录中的 `S11SoloSpear.log`。
-- 菜单依赖：上述 Logs 目录中的 `ModOptionsMenu.log`。
-- 民主护佑：`%LOCALAPPDATA%\DemocracyProtects090.log`。
-
-## 源码、打包与致谢
-
-- 各模组的 Lua、安装包清单和原有说明放在 `mods/` 对应目录。
-- 鱼叉枪和民主护佑发布 ZIP 放在 `downloads/`；`SHA256SUMS.txt` 记录校验值。
-- 打包脚本为 `scripts/build.py`，从两个模组目录的清单和 Lua 入口重建完整 ZIP。
-- 如需自行打包，在仓库目录运行 `python scripts/build.py`，生成文件位于 `build/`。
-- 游戏内菜单与共享加载框架由 CowboyBingus 提供，链接见依赖部分。
-- 修改及中文菜单由仓库维护者借助 OpenAI Codex 整理制作。
-
-当前没有为整个仓库声明 MIT 等统一许可证。依赖及引用代码的许可条件以各自原项目为准。依赖框架及游戏本体的权利属于各自作者和权利人。
-
+共享加载框架和菜单由 CowboyBingus 提供。修改及中文菜单由仓库维护者借助 OpenAI Codex 整理制作。依赖和引用代码的许可条件以各自原项目为准，本仓库未声明统一的 MIT 等许可证。

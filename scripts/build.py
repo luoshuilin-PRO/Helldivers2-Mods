@@ -40,8 +40,8 @@ def archive(name, source):
 
 
 PACKAGES = {
-    's11-speargun': 'S-11-Speargun-Solo-Enhanced-Menu-v1.3.0.zip',
-    'democracy-protects': 'Democracy-Protects-Menu-v0.2.0.zip',
+    's11-speargun': 'S-11-Speargun-Three-Tiers-v1.4.0.zip',
+    'democracy-protects': 'Democracy-Protects-Three-Tiers-v0.3.0.zip',
 }
 
 
@@ -75,4 +75,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

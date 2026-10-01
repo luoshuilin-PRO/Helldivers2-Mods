@@ -39,7 +39,7 @@ def archive(name, source):
     return bytes(body)
 
 
-PACKAGES = {'faf14-spear': 'FAF-14-Spear-Sliders-v0.2.0.zip', 'sh32-shield': 'SH-32-Shield-Pack-Sliders-v0.2.0.zip', 'democracy-protects': 'Democracy-Protects-Slider-v0.4.0.zip', 'null-cipher': 'RS-67-Null-Cipher-Stealth-Sliders-v0.2.0.zip', 's11-speargun': 'S-11-Speargun-Three-Tiers-v1.4.0.zip'}
+PACKAGES = {'faf14-spear': 'FAF-14-Spear-Sliders-v0.2.0.zip', 'sh32-shield': 'SH-32-Shield-Pack-Sliders-v0.2.0.zip', 'democracy-protects': 'Democracy-Protects-Slider-v0.4.0.zip', 'null-cipher': 'RS-67-Null-Cipher-Stealth-Sliders-v0.2.0.zip', 's11-speargun': 'S-11-Speargun-Sliders-Gas-Confusion-v1.5.0.zip'}
 
 def main():
     output = ROOT / 'build'

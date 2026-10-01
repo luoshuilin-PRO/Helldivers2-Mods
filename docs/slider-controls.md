@@ -29,7 +29,7 @@
 
 ## 验证与资料
 
-四份滑条版源码已通过游戏Lua5.1语法编译，未执行游戏内效果验证。旧飞矛和护盾v0.1.1日志确认加载、菜单注册成功，不代表新版全部数值生效。
+五份滑条版源码已通过游戏Lua5.1语法编译，未执行游戏内效果验证。旧飞矛和护盾v0.1.1日志确认加载、菜单注册成功，不代表新版全部数值生效。
 
 - [飞矛、护盾字段依据](FAF14-SH32-parameters.md)：包含最初预设版的参数；当前滑条范围以本页为准。
 - [RS-67参考字段](https://github.com/Hung1510/Super-Earth-Armory-Forge/blob/main/docs/data.json)，原版移动噪音0.5、探测半径0.6，乘法type2；本mod未捆绑Armory Forge代码。
@@ -41,3 +41,11 @@
 - RS-67：`%LOCALAPPDATA%/NullCipherStealth.log`。
 - 飞矛、护盾：HD2Runtime日志，搜索对应资源名和`SLIDERS_REGISTERED`、ensure拒绝原因。
 - 菜单插件：`%LOCALAPPDATA%/CowboyBingus/Helldivers2/Logs/ModOptionsMenu.log`。
+
+## S-11 v1.5.0毒气与混乱时间
+
+新增毒气持续6–30秒、混乱持续5–30秒两个独立滑条，步长1秒，默认6／5秒。普通伤害650–10000、耐久275–10000、AP5–10、备用弹数12–120也保留滑条，首次默认原版。
+
+v1.5.0额外需要HD2Runtime0.28.1运行时。直接使用S-11的primary_status_42和primary_status_44语义目标，修改status.duration，原版基准为6秒与5秒。原“原版／强化”引用选择移除，不再切换MK2状态。
+
+两项持续时间均属于共享定义，可能影响其他使用同一状态的来源。毒气每秒伤害、覆盖范围、免疫和换弹不变；不保证全部敌人受混乱影响。停用旧S-11版本，再导入新版；APPLY后建议呼叫新武器。源码已通过Lua5.1语法编译，未执行游戏内效果验证。

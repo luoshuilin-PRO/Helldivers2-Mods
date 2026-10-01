@@ -1,18 +1,41 @@
 -- HD2-Addon: mods/codex/s11_solo_spear
--- S-11 Speargun Solo Enhanced Menu v1.4.0
+-- S-11 Speargun Solo Enhanced Menu v1.5.0
 --
--- Steam build 25480438 / EXE 1.8.46015.0.
--- Presets: vanilla 650/275 AP5 spare12 gas6s/confusion5s;
--- medium 850/400 AP5 spare16 vanilla gas; high 1800/1800 AP6 spare24 gas10s/confusion9s.
--- Radius and reload are unchanged.
+-- Changes on Steam build 25480438 / EXE 1.8.46015.0:
+--   Direct damage       650 -> 1800
+--   Durable damage      275 -> 1800
+--   Armor penetration   AP5 -> AP6 at all impact angles
+--   Spare rounds        12 -> 24
+--   Independent gas 6-30 s / confusion 5-30 s sliders. Shared definitions may affect other sources. Reload unchanged.
+--
 -- Requires Bingus Shared Loader v18+ and Mod Options Menu v1.1 / API 1.
--- Three presets through ESC > MODS. First use defaults to vanilla; radius and reload unchanged.
+-- Values are configurable through ESC > MODS; defaults use vanilla values; duration controls require HD2Runtime 0.28.1.
+
+-- Explicit duration writers through published semantic targets; no guessed status offsets.
+local hd2=require('mods/skyeshade/hd2runtime')
+local ma,mi,pa=tostring(hd2.version):match('^(%d+)%.(%d+)%.(%d+)')
+assert(hd2.api_version==1 and ma and (tonumber(ma)>0 or tonumber(mi)>28 or tonumber(mi)==28 and tonumber(pa)>=1),
+    'Requires HD2Runtime 0.28.1 / API1')
+local duration_watches=hd2.events.run_as('mods/codex/s11_solo_spear',function()
+    local options=hd2.options({id='codex_s11_duration_v1',title='S-11 鱼叉枪'})
+    local gas=options:slider({id='gas_seconds',label='毒气持续时间（秒）',min=6,max=30,step=1,default=6,
+        description='原版6秒，最多30秒；修改共享Gas状态定义，其他来源可能受到影响。'})
+    local confusion=options:slider({id='confusion_seconds',label='混乱持续时间（秒）',min=5,max=30,step=1,default=5,
+        description='原版5秒，最多30秒；目标需可受气体混乱影响，不保证所有敌人有效。'})
+    local weapon=hd2.support_weapon('S-11 Speargun')
+    return hd2.ensure({plan={id='s11-duration-sliders-v1',operations={
+        {id='s11-gas-seconds',target=weapon:attack('primary_status_42'),allow_shared=true,
+            field=hd2.fields.status.duration,expect=6,value=gas},
+        {id='s11-confusion-seconds',target=weapon:attack('primary_status_44'),allow_shared=true,
+            field=hd2.fields.status.duration,expect=5,value=confusion}
+    }}})
+end)
 
 local MOD = {
     id = 'mods/codex/s11_solo_spear',
     global = 'CodexS11SoloSpear',
     title = 'S-11 Speargun Solo Enhanced',
-    version = '1.4.0',
+    version = '1.5.0',
     author = 'Codex',
     log = 'S11SoloSpear.log',
     targets = {
@@ -20,30 +43,30 @@ local MOD = {
             label = 'impact damage and penetration', table = 0xE0A72CF0, stride = 76,
             row_id = 63,
             edits = {
-                { offset = 4, kind = 'u32', value = 650, max = 100000, expected = 650 },
-                { offset = 8, kind = 'u32', value = 275, max = 100000, expected = 275 },
-                { offset = 12, kind = 'u32', value = 5, max = 100, expected = 5 },
-                { offset = 16, kind = 'u32', value = 5, max = 100, expected = 5 },
-                { offset = 20, kind = 'u32', value = 5, max = 100, expected = 5 },
-                { offset = 24, kind = 'u32', value = 5, max = 100, expected = 5 },
-                { offset = 44, kind = 'u32', value = 42, max = 100, expected = 42 },
-                { offset = 52, kind = 'u32', value = 44, max = 100, expected = 44 },
+                { offset = 4, kind = 'u32', value = 1800, max = 100000, expected = 650 },
+                { offset = 8, kind = 'u32', value = 1800, max = 100000, expected = 275 },
+                { offset = 12, kind = 'u32', value = 6, max = 100, expected = 5 },
+                { offset = 16, kind = 'u32', value = 6, max = 100, expected = 5 },
+                { offset = 20, kind = 'u32', value = 6, max = 100, expected = 5 },
+                { offset = 24, kind = 'u32', value = 6, max = 100, expected = 5 },
+                { offset = 44, kind = 'u32', value = 43, max = 100, expected = 42 },
+                { offset = 52, kind = 'u32', value = 45, max = 100, expected = 44 },
             },
         },
         {
             label = 'extended gas and confusion duration', table = 0xE0A72CF0, stride = 76,
             row_id = 64,
             edits = {
-                { offset = 44, kind = 'u32', value = 42, max = 100, expected = 42 },
-                { offset = 52, kind = 'u32', value = 44, max = 100, expected = 44 },
+                { offset = 44, kind = 'u32', value = 43, max = 100, expected = 42 },
+                { offset = 52, kind = 'u32', value = 45, max = 100, expected = 44 },
             },
         },
         {
             label = 'spare rounds', table = 0xFB8D88A3, stride = 160,
             entity = { hi = 0x3828E205, lo = 0x1AA9E897 },
             edits = {
-                { offset = 144, kind = 'u32', value = 12, max = 1000 },
-                { offset = 148, kind = 'u32', value = 12, max = 1000 },
+                { offset = 144, kind = 'u32', value = 24, max = 1000 },
+                { offset = 148, kind = 'u32', value = 24, max = 1000 },
             },
         },
     },
@@ -603,39 +626,65 @@ local function enforce()
     sites = kept
 end
 
--- Native Mod Options Menu API 1: three presets, baseline on first use.
-local PRESETS = {
-    {damage=650, durable=275, ap=5, spare=12, gas=1},
-    {damage=850, durable=400, ap=5, spare=16, gas=1},
-    {damage=1800, durable=1800, ap=6, spare=24, gas=2},
-}
-local CONFIG = PRESETS[1]
+-- Native Mod Options Menu API 1. Polling tolerates either addon load order.
+local CONFIG = {damage=650, durable=275, ap=5, spare=12}
 local config_dirty = true
 local menu_registered = false
+local registered_rows = {}
 local menu_retry = 0
-local function select_preset(value)
-    if type(value) ~= 'number' or value ~= math.floor(value) or not PRESETS[value] then return false end
-    CONFIG = PRESETS[value]
+local MENU_ROWS = {
+    {'damage', {type='slider', label='直击伤害', min=650, max=10000, step=50, default=650,
+        description='原版 650；首次默认原版。应用后修改 S-11 鱼叉直击伤害。'}},
+    {'durable', {type='slider', label='耐久伤害', min=275, max=10000, step=25, default=275,
+        description='原版 275；首次默认原版。影响对高耐久部位的伤害。'}},
+    {'ap', {type='slider', label='穿甲等级', min=5, max=10, step=1, default=5,
+        description='原版 AP5；首次默认 AP5。统一设置四个命中角度的穿甲等级。'}},
+    {'spare', {type='slider', label='备用弹数', min=12, max=120, step=1, default=12,
+        description='原版 12；首次默认 12。已有角色的当前库存可能需要补给或重新部署才会更新。'}},
+
+}
+
+local function accept_setting(key, value, spec)
+    local number = tonumber(value)
+    if not number or number ~= number then return false end
+    local low, high = spec.min or 1, spec.max or #spec.choices
+    if number < low or number > high or number ~= math.floor(number) then return false end
+    if spec.step and (number-low) % spec.step ~= 0 then return false end
+    CONFIG[key] = number
     config_dirty = true
-    log('S-11 preset = ' .. tostring(value))
     return true
 end
+
 local function menu_poll()
     if menu_registered or os.time() < menu_retry then return end
     menu_retry = os.time() + 2
     local menu = rawget(_G, 'ModOptionsMenu')
     if type(menu) ~= 'table' or menu.api ~= 1 or type(menu.register_option) ~= 'function'
         or type(menu.get) ~= 'function' or type(menu.on_change) ~= 'function' then return end
-    local id = 'codex.s11.preset.v1'
-    local ok, why = menu.register_option(id, {
-        type='choice', mod='S-11 鱼叉枪', label='强化档位',
-        choices={'一档：原版（默认）', '二档：适度强化', '三档：单刷强化'}, default=1,
-        description='原版：650／275伤害、AP5、12备弹。中档：850／400、AP5、16备弹。高档：1800／1800、AP6、24备弹及强化毒气。范围与换弹不变；备弹可能需补给或重新部署刷新。',
-    })
-    if not ok then log('preset registration refused: ' .. tostring(why)); return end
-    select_preset(menu.get(id))
-    menu_registered = menu.on_change(id, select_preset) == true
-    if menu_registered then log('three-tier preset menu registered') end
+    local all = true
+    for _, row in ipairs(MENU_ROWS) do
+        local key, spec = row[1], row[2]
+        if not registered_rows[key] then
+            spec.mod = 'S-11 鱼叉枪'
+            local id = 'codex.s11.sliders.v2.' .. key
+            local ok, why = menu.register_option(id, spec)
+            if ok then
+                accept_setting(key, menu.get(id), spec)
+                local hooked = menu.on_change(id, function(value)
+                    if accept_setting(key, value, spec) then
+                        log('menu ' .. key .. ' = ' .. tostring(value))
+                    end
+                end)
+                registered_rows[key] = hooked == true
+                if not registered_rows[key] then all = false end
+            else
+                all = false
+                log('menu registration refused: ' .. id .. ': ' .. tostring(why))
+            end
+        end
+    end
+    menu_registered = all
+    if all then log('four S-11 weapon sliders registered; saved values loaded') end
 end
 
 local function configure_targets()
@@ -643,7 +692,7 @@ local function configure_targets()
     impact.edits[1].value = CONFIG.damage
     impact.edits[2].value = CONFIG.durable
     for index=3,6 do impact.edits[index].value = CONFIG.ap end
-    local gas_id, confusion_id = CONFIG.gas == 2 and 43 or 42, CONFIG.gas == 2 and 45 or 44
+    local gas_id, confusion_id = 42, 44 -- durations edited through Runtime, not status swaps
     impact.edits[7].value, impact.edits[8].value = gas_id, confusion_id
     gas.edits[1].value, gas.edits[2].value = gas_id, confusion_id
     ammo.edits[1].value, ammo.edits[2].value = CONFIG.spare, CONFIG.spare

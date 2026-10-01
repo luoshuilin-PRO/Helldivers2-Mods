@@ -1,6 +1,6 @@
 # Helldivers 2 自定义模组：三档预设版
 
-提供鱼叉枪、民主护佑两个完整模组 ZIP，以及源码和打包脚本。首次加载均默认使用**一档原版**，在 ESC → MODS 中选择二档或三档，再点击 APPLY 应用。
+提供鱼叉枪、民主护佑、FAF-14飞矛、SH-32护盾背包四个完整模组 ZIP，以及源码和打包脚本。首次加载均默认使用**一档原版**，在 ESC → MODS 中选择二档或三档，再点击 APPLY 应用。新飞矛与护盾版为未完成游戏内验证的实验版。
 
 ## 下载
 
@@ -8,6 +8,8 @@
 | --- | --- | --- |
 | S-11 鱼叉枪（三档预设） | v1.4.0 | [下载完整ZIP](downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip) |
 | 民主护佑（三档预设） | v0.3.0 | [下载完整ZIP](downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip) |
+| FAF-14 飞矛（三档预设，实验版） | v0.1.0 | [下载完整ZIP](downloads/FAF-14-Spear-Three-Tiers-v0.1.0.zip) |
+| SH-32 护盾背包（三档预设，实验版） | v0.1.0 | [下载完整ZIP](downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.0.zip) |
 
 下载单个模组 ZIP 后导入 Arsenal。Code → Download ZIP 下载的是源码仓库，不能直接作为模组安装包导入。
 
@@ -37,17 +39,42 @@
 
 仅作用于拥有民主护佑被动的护甲。选择并应用后请换下护甲再穿回，或重新部署，刷新角色被动。概率不代表每十次必定存活固定次数。
 
+## FAF-14飞矛与SH-32护盾背包
+
+| 飞矛参数 | 一档：原版 | 二档：适度强化 | 三档：单刷强化 |
+| --- | --- | --- | --- |
+| 爆炸普通／耐久伤害 | 200／200 | 2000／2000 | 8000／8000 |
+| 爆炸AP直角字段 | 3 | 5 | 7 |
+| 内半径 | 1.5米 | 2.5米 | 3米 |
+| 外半径 | 3米 | 7米 | 12米 |
+| 冲击波半径 | 6米 | 10米 | 18米 |
+
+飞矛保留原版直击4000普通／4000耐久伤害、AP7，以及原有导引、索敌对象、弹药和换弹。当前HD2Runtime将直击弹丸分支标为PARTIAL且不可写，爆炸分支为RESOLVED，因此只强化已确认的爆炸链。其余三个爆炸角度AP字段保留0；冲击波半径不等于满额伤害半径。不能保证所有可锁定目标一发击杀，扩大范围也会扩大可能伤及自身的区域。
+
+| 护盾参数 | 一档：原版 | 二档：适度强化 | 三档：单刷强化 |
+| --- | --- | --- | --- |
+| 容量 | 150 | 450 | 1500 |
+| 未破盾受伤后的恢复延迟 | 60秒 | 10秒 | 3秒 |
+| 破盾恢复延迟 | 12秒 | 6秒 | 3秒 |
+| 恢复速度 | 150 HP/秒 | 450 HP/秒 | 15000 HP/秒 |
+| 护盾半径 | 1.3米 | 1.3米 | 1.3米 |
+
+第三档的3秒是**开始恢复的延迟**，从空盾充满理论还需0.1秒，实际取决于游戏时序。上游将三个恢复字段标为原生类型与数值关联已确认、游戏内效果未验证；本模组也尚未进行游戏内验证。
+
+两个新模组均在应用档位后等待写入，再呼叫新装备。现有装备是否重新读取定义未确认。回到一档会通过相同检查恢复本模组拥有的定义值；不覆盖其他模组的冲突数值。查看[参数来源与限制](docs/FAF14-SH32-parameters.md)。
+
 ## 必需依赖
 
 - **[Bingus Shared Loader v18](https://github.com/CowboyBingus/BingusSharedLoader)**，作者 CowboyBingus。
 - **[Mod Options Menu v1.1](https://github.com/CowboyBingus/ModOptionsMenu)**，作者 CowboyBingus；[Nexus下载页面](https://www.nexusmods.com/helldivers2/mods/16625)。
+- **仅新飞矛和护盾模组额外需要：[HD2Runtime 0.28.1 / API 1](https://github.com/SkyeShade/HD2Runtime/releases)**，作者 SkyeShade。需下载并导入运行时模组安装包；源码ZIP、SDK、ModBuilder不是运行时安装包。
 
 当前实现使用 Mod Options Menu v1.1 / API 1 接口。新版依赖的兼容性需要另行确认。依赖需单独下载，本仓库提供作者链接。
 
 ## 安装和升级
 
 1. 关闭游戏，在 Arsenal 中停用两个模组的旧版。
-2. 导入所需的新 ZIP，启用 Mod Options Menu 和 Bingus Shared Loader。
+2. 导入所需的新 ZIP，启用 Mod Options Menu 和 Bingus Shared Loader；飞矛或护盾还需启用HD2Runtime。
 3. **Loader 放在加载顺序底部**，执行 Purge → Deploy。
 4. 启动游戏，在舰船或任务中打开 ESC → MODS，选择档位。
 5. 点击 APPLY 或按菜单提示按键（键盘 Tab）应用。
@@ -66,10 +93,14 @@
 
 日志：鱼叉枪位于上述 Logs 目录的 `S11SoloSpear.log`，民主护佑位于 `%LOCALAPPDATA%\DemocracyProtects090.log`。
 
+飞矛与护盾由HD2Runtime检查构建、身份、原版基准值和写入后的数据。同一字段有其他mod修改时可能被拒绝。菜单出现只说明设置注册成功，不代表写入成功；查看HD2Runtime日志中的 `mods/luoshuilin/faf14_spear_tiers`、`mods/luoshuilin/sh32_shield_tiers` 与ensure拒绝原因。首次原版没有伤害增强属于预期行为。
+
 ## 源码与自行打包
 
-- `mods/`：两个模组的最终 Lua、清单和说明。
+- `mods/`：四个模组的最终 Lua、清单和说明。
 - `downloads/`：完整安装包；`SHA256SUMS.txt`：校验值。
 - 运行 `python scripts/build.py`，生成包位于 `build/`。
 
 共享加载框架和菜单由 CowboyBingus 提供。修改及中文菜单由仓库维护者借助 OpenAI Codex 整理制作。依赖和引用代码的许可条件以各自原项目为准，本仓库未声明统一的 MIT 等许可证。
+
+新飞矛和护盾模组使用SkyeShade的HD2Runtime公开API，不捆绑运行时。数值依据其0.28.1 SDK能力目录；感谢原作者提供可复核的类型与归属证据。

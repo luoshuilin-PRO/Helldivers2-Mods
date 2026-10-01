@@ -1,0 +1,1168 @@
+{
+  "sdk": "0.28.1",
+  "steamBuild": 25480438,
+  "gameplayTested": false,
+  "spear": {
+    "branches": [
+      {
+        "name": "FAF-14 P",
+        "kind": "Projectile",
+        "parentAttack": null,
+        "runtimeRole": "primary",
+        "state": "PARTIAL",
+        "writable": false,
+        "blockedReason": null
+      },
+      {
+        "name": "FAF-14 P IE",
+        "kind": "Explosion",
+        "parentAttack": "FAF-14 P",
+        "runtimeRole": "primary_impact",
+        "state": "RESOLVED",
+        "writable": true,
+        "blockedReason": null
+      }
+    ],
+    "blockedFields": [
+      {
+        "field": "function_ammo.projectile",
+        "reason": "The weapon spawns an entity or already carries a function projectile."
+      },
+      {
+        "field": "backpack storage",
+        "reason": "Backpack entity/package storage ownership is unresolved; weapon-side fields remain independent."
+      },
+      {
+        "field": "unresolved branch",
+        "reason": "backpack entity/package ownership link (weapon-side linked-ammo ownership is reported separately)"
+      }
+    ],
+    "explosionFields": [
+      {
+        "semanticFieldId": "explosion.inner_radius",
+        "apiFieldConstant": "hd2.fields.explosion.inner_radius",
+        "value": {
+          "kind": "scalar",
+          "type": "number",
+          "baseline": 1.5,
+          "expected": 1.5,
+          "unit": "meters",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/703cda5eb07a66f0bab2",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/0e474db32dcae90d20ce",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.outer_radius",
+        "apiFieldConstant": "hd2.fields.explosion.outer_radius",
+        "value": {
+          "kind": "scalar",
+          "type": "number",
+          "baseline": 3,
+          "expected": 3,
+          "unit": "meters",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/703cda5eb07a66f0bab2",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/0e474db32dcae90d20ce",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.shockwave_radius",
+        "apiFieldConstant": "hd2.fields.explosion.shockwave_radius",
+        "value": {
+          "kind": "scalar",
+          "type": "number",
+          "baseline": 6,
+          "expected": 6,
+          "unit": "meters",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/703cda5eb07a66f0bab2",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/0e474db32dcae90d20ce",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.standard_damage",
+        "apiFieldConstant": "hd2.fields.explosion.damage_standard_damage",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 200,
+          "expected": 200,
+          "unit": "damage",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.durable_damage",
+        "apiFieldConstant": "hd2.fields.explosion.damage_durable_damage",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 200,
+          "expected": 200,
+          "unit": "damage",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.ap_direct",
+        "apiFieldConstant": "hd2.fields.explosion.damage_ap_direct",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 3,
+          "expected": 3,
+          "unit": "armor_class",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.ap_slight",
+        "apiFieldConstant": "hd2.fields.explosion.damage_ap_slight",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 0,
+          "expected": 0,
+          "unit": "armor_class",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.ap_large",
+        "apiFieldConstant": "hd2.fields.explosion.damage_ap_large",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 0,
+          "expected": 0,
+          "unit": "armor_class",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.ap_extreme",
+        "apiFieldConstant": "hd2.fields.explosion.damage_ap_extreme",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 0,
+          "expected": 0,
+          "unit": "armor_class",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.demolition",
+        "apiFieldConstant": "hd2.fields.explosion.damage_demolition",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 30,
+          "expected": 30,
+          "unit": "force",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.stagger",
+        "apiFieldConstant": "hd2.fields.explosion.damage_stagger",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 60,
+          "expected": 60,
+          "unit": "force",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.push_force",
+        "apiFieldConstant": "hd2.fields.explosion.damage_push_force",
+        "value": {
+          "kind": "scalar",
+          "type": "integer",
+          "baseline": 70,
+          "expected": 70,
+          "unit": "force",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": null,
+          "acknowledgementReason": null
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.status_1_type",
+        "apiFieldConstant": "hd2.fields.explosion.damage_status_1_type",
+        "value": {
+          "kind": "reference",
+          "type": "status_reference",
+          "baseline": "none",
+          "expected": "none",
+          "unit": null,
+          "reference": {
+            "expectedSemanticReference": "none",
+            "sourceClass": "status_reference",
+            "typedIdentityOnly": true
+          }
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": "allow_unverified_effect",
+          "acknowledgementReason": "The slot mechanism is native and the status is one a player-side attack already applies, but a status on an attack that does not use it is not gameplay-proven; allow_unverified_effect is required."
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      },
+      {
+        "semanticFieldId": "explosion.damage.status_1_strength",
+        "apiFieldConstant": "hd2.fields.explosion.damage_status_1_strength",
+        "value": {
+          "kind": "scalar",
+          "type": "number",
+          "baseline": 0.0,
+          "expected": 0.0,
+          "unit": "factor",
+          "reference": null
+        },
+        "writable": true,
+        "operation": {
+          "minimumApi": "hd2.patch",
+          "patchSupported": true,
+          "transactionSupported": true,
+          "transactionRequired": false,
+          "transactionGroupingKey": "support-operation/v1/773fd71603cd8c4523f0",
+          "planSupported": true,
+          "planRequired": false,
+          "planRequiredForMultipleBackingObjects": true,
+          "planGroupingKey": "support-plan/v1/faf-14-spear/0b5ea028958b",
+          "phase": 1,
+          "dependencies": [],
+          "allowSharedRequired": true,
+          "acknowledgement": "allow_unverified_effect",
+          "acknowledgementReason": "The slot mechanism is native and the status is one a player-side attack already applies, but a status on an attack that does not use it is not gameplay-proven; allow_unverified_effect is required."
+        },
+        "sharedScope": {
+          "scopeKey": "support-scope/v1/7249b288959c64237f98",
+          "shared": true,
+          "requiresAcknowledgement": true,
+          "reviewedConsumerCount": 1,
+          "affectedSemanticConsumers": [
+            {
+              "weapon": "FAF-14 Spear",
+              "targetPath": "explosion",
+              "attackRole": "primary_impact",
+              "attackKind": "Explosion",
+              "parentAttackRole": "primary",
+              "catalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "writableCatalogBranches": [
+                {
+                  "name": "FAF-14 P IE",
+                  "kind": "Explosion",
+                  "state": "RESOLVED"
+                }
+              ],
+              "consumerKey": "support-consumer/v1/faf-14-spear/explosion/primary-impact/6366ac1ec1ed33bb"
+            }
+          ],
+          "reviewedScopeComplete": true,
+          "dynamicConsumersPossible": true
+        },
+        "provenance": {
+          "identity": "unique reviewed support-weapon runtime identity",
+          "semantics": "shared player/support field schema",
+          "ownership": "typed retained-snapshot ownership chain",
+          "baseline": "exact retained-snapshot value",
+          "validation": "production resolver guarded ALREADY_DESIRED no-op",
+          "evidenceArtifact": "support-weapon-authoring-validation-F5FEE03DCFDB.json"
+        }
+      }
+    ]
+  },
+  "shield": [
+    {
+      "semanticFieldId": "shield.radius",
+      "apiFieldConstant": "hd2.fields.shield.entity_radius",
+      "currentDefault": 1.3,
+      "editable": true,
+      "evidence": {
+        "tier": "schema_proven",
+        "referenceMod": "ShieldRelayImprovements",
+        "proof": "research/gameplay-confirmation-0.1.4.json: shield_radius_15_to_8_functional",
+        "provenOn": [
+          "FX-12 Shield Generator Relay"
+        ],
+        "sharedTypedSchema": true
+      },
+      "acknowledgement": null,
+      "acknowledgementReason": null,
+      "effect": null
+    },
+    {
+      "semanticFieldId": "shield.durability",
+      "apiFieldConstant": "hd2.fields.shield.entity_durability",
+      "currentDefault": 150.0,
+      "editable": true,
+      "evidence": {
+        "tier": "schema_proven",
+        "referenceMod": "ShieldRelayImprovements",
+        "proof": "research/durability-confirmation.json: 4000 -> 40000 confirmed in gameplay",
+        "provenOn": [
+          "FX-12 Shield Generator Relay"
+        ],
+        "sharedTypedSchema": true
+      },
+      "acknowledgement": null,
+      "acknowledgementReason": null,
+      "effect": null
+    },
+    {
+      "semanticFieldId": "shield.recharge_delay",
+      "apiFieldConstant": "hd2.fields.shield.recharge_delay",
+      "currentDefault": 60.0,
+      "editable": true,
+      "evidence": {
+        "tier": "native_correlated",
+        "referenceMod": null,
+        "proof": null,
+        "provenOn": [],
+        "sharedTypedSchema": false,
+        "correlations": [
+          {
+            "entity": "SH-32 Shield Generator Pack",
+            "native": 60.0,
+            "published": 60.0
+          },
+          {
+            "entity": "SH-51 Directional Shield",
+            "native": 3.0,
+            "published": 3.0
+          },
+          {
+            "entity": "FX-12 Shield Generator Relay",
+            "native": 0.01,
+            "published": 0.00999999978
+          }
+        ]
+      },
+      "acknowledgement": "allow_unverified_effect",
+      "acknowledgementReason": "Exact published values on three independent shields (SH-32, SH-51 barrier, FX-12 relay) at the same typed ShieldComponent member; not yet shown in game. Seconds after damage before a damaged (unbroken) shield starts recharging.",
+      "effect": {
+        "activeSource": "DEFINITION_RECORD",
+        "activeSourceProven": false,
+        "appliesWhen": "entity_spawn",
+        "instantiationOnly": null,
+        "lifecycle": "Apply before the backpack is called in: the definition record is what a newly spawned backpack starts from; whether one already in the world re-reads it is not proven."
+      }
+    },
+    {
+      "semanticFieldId": "shield.broken_recharge_delay",
+      "apiFieldConstant": "hd2.fields.shield.broken_recharge_delay",
+      "currentDefault": 12.0,
+      "editable": true,
+      "evidence": {
+        "tier": "native_correlated",
+        "referenceMod": null,
+        "proof": null,
+        "provenOn": [],
+        "sharedTypedSchema": false,
+        "correlations": [
+          {
+            "entity": "SH-32 Shield Generator Pack",
+            "native": 12.0,
+            "published": 12.0
+          },
+          {
+            "entity": "SH-51 Directional Shield",
+            "native": 6.0,
+            "published": 6.0
+          },
+          {
+            "entity": "FX-12 Shield Generator Relay",
+            "native": 45.0,
+            "published": 45.0
+          }
+        ]
+      },
+      "acknowledgement": "allow_unverified_effect",
+      "acknowledgementReason": "Exact published values on three independent shields (SH-32, SH-51 barrier, FX-12 relay) at the same typed ShieldComponent member; not yet shown in game. Seconds after the shield breaks before it restarts.",
+      "effect": {
+        "activeSource": "DEFINITION_RECORD",
+        "activeSourceProven": false,
+        "appliesWhen": "entity_spawn",
+        "instantiationOnly": null,
+        "lifecycle": "Apply before the backpack is called in: the definition record is what a newly spawned backpack starts from; whether one already in the world re-reads it is not proven."
+      }
+    },
+    {
+      "semanticFieldId": "shield.recharge_rate",
+      "apiFieldConstant": "hd2.fields.shield.recharge_rate",
+      "currentDefault": 150.0,
+      "editable": true,
+      "evidence": {
+        "tier": "native_correlated",
+        "referenceMod": null,
+        "proof": null,
+        "provenOn": [],
+        "sharedTypedSchema": false,
+        "correlations": [
+          {
+            "entity": "SH-32 Shield Generator Pack",
+            "native": 150.0,
+            "published": 150.0
+          },
+          {
+            "entity": "SH-51 Directional Shield",
+            "native": 300.0,
+            "published": 300.0
+          },
+          {
+            "entity": "FX-12 Shield Generator Relay",
+            "native": 400.0,
+            "published": 400.0
+          }
+        ]
+      },
+      "acknowledgement": "allow_unverified_effect",
+      "acknowledgementReason": "Exact published values on three independent shields (SH-32, SH-51 barrier, FX-12 relay) at the same typed ShieldComponent member; not yet shown in game. Shield health restored per second while recharging.",
+      "effect": {
+        "activeSource": "DEFINITION_RECORD",
+        "activeSourceProven": false,
+        "appliesWhen": "entity_spawn",
+        "instantiationOnly": null,
+        "lifecycle": "Apply before the backpack is called in: the definition record is what a newly spawned backpack starts from; whether one already in the world re-reads it is not proven."
+      }
+    }
+  ]
+}

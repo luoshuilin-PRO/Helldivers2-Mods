@@ -40,6 +40,8 @@ def archive(name, source):
 
 
 PACKAGES = {
+    'sh32-shield': 'SH-32-Shield-Pack-Three-Tiers-v0.1.0.zip',
+    'faf14-spear': 'FAF-14-Spear-Three-Tiers-v0.1.0.zip',
     's11-speargun': 'S-11-Speargun-Three-Tiers-v1.4.0.zip',
     'democracy-protects': 'Democracy-Protects-Three-Tiers-v0.3.0.zip',
 }

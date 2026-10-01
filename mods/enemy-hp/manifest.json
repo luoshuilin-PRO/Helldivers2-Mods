@@ -1,0 +1,15 @@
+{
+  "Version": 1,
+  "Guid": "fe6c0ed7-c93c-4cac-96d3-5d52b2602b37",
+  "Name": "敌人 HP（游戏内开关）v1.1.2",
+  "Description": "ESC → MODS → 敌人 HP：显示敌人 HP 开关，默认开启。关闭立即隐藏标签并暂停标记读取。保留原版红色标记触发、名称及游戏版本检查。需要 Mod Options Menu v1.1 和 Bingus Shared Loader v18+。",
+  "Options": [
+    {
+      "Name": "敌人 HP（游戏内开关）v1.1.2",
+      "Description": "ESC → MODS → 敌人 HP：显示敌人 HP 开关，默认开启。关闭立即隐藏标签并暂停标记读取。保留原版红色标记触发、名称及游戏版本检查。需要 Mod Options Menu v1.1 和 Bingus Shared Loader v18+。",
+      "Include": [
+        "Addon"
+      ]
+    }
+  ]
+}

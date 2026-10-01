@@ -1,0 +1,79 @@
+{
+  "base_sha256": "ddc0a22ba3286b56cd4531582b05b3d899b2bbb92f4ee9455e75376fad941ae6",
+  "result_sha256": "508d492ec9f9f94846e375c962163278cf3fb1780be69b937b0ae180b2f164be",
+  "changes": [
+    {
+      "start": 386,
+      "end": 388,
+      "replacement": [
+        "if state and state.revision == \"ehp-1.1.2-menu\" then return end\n",
+        "local REVISION = \"ehp-1.1.2-menu\"\n"
+      ]
+    },
+    {
+      "start": 411,
+      "end": 412,
+      "replacement": [
+        "pcall(ffi.cdef, [=[typedef struct { void *base; void *allocation_base; uint32_t allocation_protection; uint16_t partition;\n",
+        "                     uint16_t reserved; size_t size; uint32_t state; uint32_t protection; uint32_t type; } EhpRegion;]=])\n",
+        "for declaration in ([=[\n"
+      ]
+    },
+    {
+      "start": 415,
+      "end": 417,
+      "replacement": [
+        "    \n"
+      ]
+    },
+    {
+      "start": 420,
+      "end": 421,
+      "replacement": [
+        "]=]):gmatch('[^;]+;') do pcall(ffi.cdef,declaration) end\n"
+      ]
+    },
+    {
+      "start": 814,
+      "end": 814,
+      "replacement": [
+        "local hp_enabled=true\n",
+        "local menu_registered=false\n",
+        "local menu_retry=0\n",
+        "local function set_hp_enabled(value)\n",
+        "    if type(value)~='boolean' then return end\n",
+        "    hp_enabled=value\n",
+        "    if not value then\n",
+        "        hide()\n",
+        "        target=nil; last_hp=nil; last_mark=nil\n",
+        "    end\n",
+        "    state.hp_enabled=value\n",
+        "    log('HP display '..(value and 'ON' or 'OFF'))\n",
+        "end\n",
+        "local function menu_poll()\n",
+        "    if menu_registered or os.clock()<menu_retry then return end\n",
+        "    menu_retry=os.clock()+2\n",
+        "    local menu=rawget(_G,'ModOptionsMenu')\n",
+        "    if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function'\n",
+        "        or type(menu.get)~='function' or type(menu.on_change)~='function' then return end\n",
+        "    local id='codex.enemyhp.enabled'\n",
+        "    local ok,why=menu.register_option(id,{type='toggle',mod='敌人 HP',label='显示敌人 HP',default=true,\n",
+        "        description='开启后显示自己红色标记敌人的名称和血量。关闭立即隐藏标签，并暂停读取标记；舰船上也能设置。'})\n",
+        "    if not ok then log('menu refused: '..tostring(why));return end\n",
+        "    set_hp_enabled(menu.get(id))\n",
+        "    menu_registered=menu.on_change(id,set_hp_enabled)==true\n",
+        "    if menu_registered then log('HP menu registered') end\n",
+        "end\n",
+        "\n"
+      ]
+    },
+    {
+      "start": 816,
+      "end": 816,
+      "replacement": [
+        "    menu_poll()\n",
+        "    if not menu_registered or not hp_enabled then hide(); return end\n"
+      ]
+    }
+  ]
+}

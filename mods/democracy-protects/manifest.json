@@ -1,0 +1,15 @@
+{
+  "Version": 1,
+  "Guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "Name": "民主护佑（50%／70%／90% 游戏内设置）v0.2.0",
+  "Description": "ESC → MODS → 民主护佑：选择 50% 原版、70% 或 90%，默认 90%。需要 Mod Options Menu v1.1 和 Bingus Shared Loader v18+。应用后重新装备护甲或部署，以刷新角色被动。保留原包 SHA256 游戏版本检查。",
+  "Options": [
+    {
+      "Name": "民主护佑（50%／70%／90% 游戏内设置）v0.2.0",
+      "Description": "ESC → MODS → 民主护佑：选择 50% 原版、70% 或 90%，默认 90%。需要 Mod Options Menu v1.1 和 Bingus Shared Loader v18+。应用后重新装备护甲或部署，以刷新角色被动。保留原包 SHA256 游戏版本检查。",
+      "Include": [
+        "Addon"
+      ]
+    }
+  ]
+}

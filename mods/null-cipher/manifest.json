@@ -1,11 +1,11 @@
 {
   "Version": 1,
-  "Guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "Name": "民主护佑自由滑条 v0.4.0",
+  "Guid": "1350aefb-f876-45b7-aac1-31ec59c4f0aa",
+  "Name": "RS-67空密码自由滑条 v0.2.0",
   "Description": "自由滑条，首次默认原版。需要Mod Options Menu API1和Bingus Shared Loader v18。未游戏内验证。",
   "Options": [
     {
-      "Name": "民主护佑自由滑条 v0.4.0",
+      "Name": "RS-67空密码自由滑条 v0.2.0",
       "Description": "自由滑条，首次默认原版。需要Mod Options Menu API1和Bingus Shared Loader v18。未游戏内验证。",
       "Include": [
         "Addon"

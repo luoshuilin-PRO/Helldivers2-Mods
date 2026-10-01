@@ -1,5 +1,6 @@
 -- HD2-Addon: mods/luoshuilin/faf14_spear_tiers
 -- v0.1.1: Loader Lua ABI version is separate from its release label.
+-- v0.1.1: Loader Lua ABI version is separate from its release label.
 -- Original preset is the default. No raw addresses or guessed damage owners.
 local loader=rawget(_G,'CowboyBingusModLoader')
 assert(loader and loader.api==1 and type(loader.version)=='number' and loader.version>=16,
@@ -50,33 +51,84 @@ local function start()
             {field=hd2.fields.explosion.damage_ap_direct,expect=3,value=ap}}}
     }}})
 
-    local function select_preset(index)
-        if type(index)~='number' or index%1~=0 or index<1 or index>3 then return false end
-        -- Changes coalesce inside Runtime's 0.5 s debounce; no memory writes in this callback.
-        for _,entry in ipairs(state.values)do entry.handle:set(entry.presets[index])end
-        state.preset=index
-        mod:log('preset '..tostring(index)..' selected; call in fresh equipment after APPLY')
-        return true
-    end
     local elapsed=0
     local function register_menu()
         if state.menu_registered then return end
         local menu=rawget(_G,'ModOptionsMenu')
-        if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function'
-            or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
-        local ok,why=menu.register_option('luoshuilin.faf14-spear.preset.v1',{type='choice',mod='FAF-14 飞矛',label='强化档位',
-            choices={'一档：原版（默认）','二档：适度强化','三档：单刷强化'},default=1,
-            description='爆炸伤害200／2000／8000，爆炸AP3／5／7，外半径3／7／12米。直击和索敌保持原版；未验证，不能保证秒杀全部可锁定敌人。应用后呼叫新飞矛。'})
-        if not ok then
-            mod:log('menu registration refused: '..tostring(why));state.menu_finished=true;return
+        if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function' or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.damage'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='爆炸伤害',min=200,max=8000,step=100,default=200,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<200 or value>8000 then return end
+                damage:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
         end
-        local listening=menu.on_change('luoshuilin.faf14-spear.preset.v1',select_preset)
-        if listening~=true then
-            mod:log('menu callback registration refused; keeping original preset')
-            state.menu_finished=true;return
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.durable'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='爆炸耐久伤害',min=200,max=8000,step=100,default=200,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<200 or value>8000 then return end
+                durable:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
         end
-        state.menu_registered=true
-        select_preset(menu.get('luoshuilin.faf14-spear.preset.v1'))
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.ap'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='爆炸穿甲',min=3,max=7,step=1,default=3,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<3 or value>7 then return end
+                ap:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.inner'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='内半径（米）',min=1.5,max=3,step=0.5,default=1.5,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<1.5 or value>3 then return end
+                inner:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.outer'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='外半径（米）',min=3,max=12,step=1,default=3,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<3 or value>12 then return end
+                outer:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        do
+            local id='luoshuilin.faf14-spear.slider.v1.shock'
+            local ok,why=menu.register_option(id,{type='slider',mod='FAF-14 飞矛',label='冲击波半径（米）',min=6,max=18,step=1,default=6,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<6 or value>18 then return end
+                shock:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        state.menu_registered=true;mod:log('SLIDERS_REGISTERED')
     end
     -- Cancel the registration timer once settled. Missing menu leaves original values only.
     state.menu_timer=mod:every(1,function(timer)
@@ -87,7 +139,7 @@ local function start()
             timer:cancel()
         end
     end,{id='register-preset-menu',scope='session'})
-    mod:log('three-tier addon initialized; original preset is the default')
+    mod:log('slider addon initialized; original preset is the default')
     return state
 end
 local state=runtime.events.run_as('mods/luoshuilin/faf14_spear_tiers',start)

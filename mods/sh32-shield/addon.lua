@@ -1,5 +1,6 @@
 -- HD2-Addon: mods/luoshuilin/sh32_shield_tiers
 -- v0.1.1: Loader Lua ABI version is separate from its release label.
+-- v0.1.1: Loader Lua ABI version is separate from its release label.
 -- Original preset is the default. No raw addresses or guessed damage owners.
 local loader=rawget(_G,'CowboyBingusModLoader')
 assert(loader and loader.api==1 and type(loader.version)=='number' and loader.version>=16,
@@ -46,33 +47,60 @@ local function start()
             {field=hd2.fields.shield.recharge_rate,expect=150,value=rate}
         }}})
 
-    local function select_preset(index)
-        if type(index)~='number' or index%1~=0 or index<1 or index>3 then return false end
-        -- Changes coalesce inside Runtime's 0.5 s debounce; no memory writes in this callback.
-        for _,entry in ipairs(state.values)do entry.handle:set(entry.presets[index])end
-        state.preset=index
-        mod:log('preset '..tostring(index)..' selected; call in fresh equipment after APPLY')
-        return true
-    end
     local elapsed=0
     local function register_menu()
         if state.menu_registered then return end
         local menu=rawget(_G,'ModOptionsMenu')
-        if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function'
-            or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
-        local ok,why=menu.register_option('luoshuilin.sh32-shield.preset.v1',{type='choice',mod='SH-32 护盾背包',label='强化档位',
-            choices={'一档：原版（默认）','二档：适度强化','三档：单刷强化'},default=1,
-            description='容量150／450／1500，破盾恢复延迟12／6／3秒，恢复速度150／450／15000每秒。3秒指开始恢复；恢复参数未验证。应用后呼叫新背包。'})
-        if not ok then
-            mod:log('menu registration refused: '..tostring(why));state.menu_finished=true;return
+        if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function' or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
+        do
+            local id='luoshuilin.sh32-shield.slider.v1.health'
+            local ok,why=menu.register_option(id,{type='slider',mod='SH-32 护盾背包',label='护盾容量',min=150,max=1500,step=50,default=150,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<150 or value>1500 then return end
+                health:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
         end
-        local listening=menu.on_change('luoshuilin.sh32-shield.preset.v1',select_preset)
-        if listening~=true then
-            mod:log('menu callback registration refused; keeping original preset')
-            state.menu_finished=true;return
+        do
+            local id='luoshuilin.sh32-shield.slider.v1.delay'
+            local ok,why=menu.register_option(id,{type='slider',mod='SH-32 护盾背包',label='受伤恢复等待缩短（秒）',min=0,max=57,step=1,default=0,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<0 or value>57 then return end
+                delay:set(60-value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
         end
-        state.menu_registered=true
-        select_preset(menu.get('luoshuilin.sh32-shield.preset.v1'))
+        do
+            local id='luoshuilin.sh32-shield.slider.v1.broken'
+            local ok,why=menu.register_option(id,{type='slider',mod='SH-32 护盾背包',label='破盾恢复等待缩短（秒）',min=0,max=9,step=1,default=0,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<0 or value>9 then return end
+                broken:set(12-value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        do
+            local id='luoshuilin.sh32-shield.slider.v1.rate'
+            local ok,why=menu.register_option(id,{type='slider',mod='SH-32 护盾背包',label='恢复速度（每秒）',min=150,max=15000,step=150,default=150,description='最左为原版。APPLY后重新呼叫装备；详细范围见安装包说明。'})
+            if not ok then mod:log('MENU_REFUSED '..tostring(why));return end
+            local function apply(value)
+                if type(value)~='number' or value<150 or value>15000 then return end
+                rate:set(value)
+                mod:log(id..' = '..tostring(value))
+            end
+            if menu.on_change(id,apply)~=true then mod:log('MENU_CALLBACK_REFUSED');return end
+            apply(menu.get(id))
+        end
+        state.menu_registered=true;mod:log('SLIDERS_REGISTERED')
     end
     -- Cancel the registration timer once settled. Missing menu leaves original values only.
     state.menu_timer=mod:every(1,function(timer)
@@ -83,7 +111,7 @@ local function start()
             timer:cancel()
         end
     end,{id='register-preset-menu',scope='session'})
-    mod:log('three-tier addon initialized; original preset is the default')
+    mod:log('slider addon initialized; original preset is the default')
     return state
 end
 local state=runtime.events.run_as('mods/luoshuilin/sh32_shield_tiers',start)

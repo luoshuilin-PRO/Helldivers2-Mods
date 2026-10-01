@@ -3,7 +3,7 @@
 -- HD2-Addon declaration is inserted by the builder as the very first line.
 local key='DemocracyProtects090'
 if rawget(_G,key) then return rawget(_G,key) end
-local public={version='0.3.0-presets',status='initializing'}
+local public={version='0.4.0-sliders',status='initializing'}
 rawset(_G,key,public)
 local log_path=(os.getenv('LOCALAPPDATA') or os.getenv('TEMP') or '.')..'/DemocracyProtects090.log'
 local first=true
@@ -13,7 +13,7 @@ local function log(message)
         if f then f:write(os.date('%Y-%m-%d %H:%M:%S')..' '..tostring(message)..'\n'); f:close(); first=false end
     end)
 end
-log('Democracy Protects menu: 50/80/90 percent; default vanilla 50; actor refresh may require armor change')
+log('Democracy Protects menu: 50-90 percent slider; default vanilla 50; actor refresh may require armor change')
 local make_api=(function() -- Windows adapter. Reads and writes only this Lua VM's own process.
 -- Only private, non-executable data pages are eligible. Read-only pages are
 -- temporarily writable for each checked four-byte write, then restored.
@@ -214,9 +214,9 @@ local make_core=(function() return function(api,cfg)
     end
     function s.set_probability(percent)
         if stopped then return false,'core stopped or unsupported build' end
-        local values={ [50]="\000\000\192\063", [80]="\102\102\230\063", [90]="\051\051\243\063" }
-        local bytes=values[percent]
-        if not bytes then return false,'invalid probability' end
+        if type(percent)~='number' or percent%1~=0 or percent<50 or percent>90 then return false,'invalid percentage' end
+        local ffi=require('ffi');local cell=ffi.new('float[1]',1+percent/100)
+        local bytes=ffi.string(cell,4)
         if target then
             if not identify(target) then
                 target=nil;owned=false;cursor=4294967296;region=nil;scanned=0
@@ -261,17 +261,13 @@ local function menu_poll()
     local menu=rawget(_G,'ModOptionsMenu')
     if type(menu)~='table' or menu.api~=1 or type(menu.register_option)~='function'
         or type(menu.get)~='function' or type(menu.on_change)~='function' then return end
-    local id='codex.democracy.preset.v1'
-    local ok,why=menu.register_option(id,{type='choice',mod='民主护佑',label='存活概率档位',
-        choices={'一档：50%（原版／默认）','二档：80%','三档：90%'},default=1,
-        description='只修改拥有民主护佑被动的护甲。应用后请重新装备护甲或部署，以刷新角色被动。'})
+    local id='codex.democracy.slider.v1'
+    local ok,why=menu.register_option(id,{type='slider',mod='民主护佑',label='存活概率（%）',min=50,max=90,step=1,default=50,
+        description='50%原版至90%，每格1%。只作用于民主护佑护甲，APPLY后重新穿戴或部署。'})
     if not ok then log('MENU_REFUSED '..tostring(why));return end
-    local percentages={50,80,90}
-    local function select(value)
-        local percent=percentages[value]
-        if not percent then return end
+    local function select(percent)
         local good,reason=core.set_probability(percent)
-        log('MENU '..percent..'% '..tostring(good)..' '..tostring(reason or ''))
+        log('MENU '..tostring(percent)..'% '..tostring(good)..' '..tostring(reason or ''))
     end
     select(menu.get(id))
     menu_registered=menu.on_change(id,select)==true

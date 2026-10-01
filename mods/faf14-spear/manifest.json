@@ -1,12 +1,12 @@
 {
   "Version": 1,
   "Guid": "0ad29321-7f19-4ca5-bd9b-e84cc92af729",
-  "Name": "FAF-14 飞矛（三档预设，默认原版）v0.1.1 实验版",
-  "Description": "爆炸伤害200／2000／8000，爆炸AP3／5／7，外半径3／7／12米。直击和索敌保持原版；未验证，不能保证秒杀全部可锁定敌人。应用后呼叫新飞矛。 需要 Bingus Shared Loader v18、Mod Options Menu v1.1 / API 1、HD2Runtime 0.28.1 / API 1。未进行游戏内验证。",
+  "Name": "FAF-14飞矛自由滑条 v0.2.0",
+  "Description": "自由滑条，首次默认原版。需要HD2Runtime0.28.1、需要Mod Options Menu API1和Bingus Shared Loader v18。未游戏内验证。",
   "Options": [
     {
-      "Name": "FAF-14 飞矛（三档预设，默认原版）v0.1.1 实验版",
-      "Description": "爆炸伤害200／2000／8000，爆炸AP3／5／7，外半径3／7／12米。直击和索敌保持原版；未验证，不能保证秒杀全部可锁定敌人。应用后呼叫新飞矛。",
+      "Name": "FAF-14飞矛自由滑条 v0.2.0",
+      "Description": "自由滑条，首次默认原版。需要HD2Runtime0.28.1、需要Mod Options Menu API1和Bingus Shared Loader v18。未游戏内验证。",
       "Include": [
         "Addon"
       ]

@@ -1,126 +1,78 @@
-# Helldivers 2 自定义模组：三档预设版
+# Helldivers 2 自定义模组：自由滑条与三档预设
 
-提供鱼叉枪、民主护佑、FAF-14飞矛、SH-32护盾背包四个完整模组 ZIP，以及源码和打包脚本。首次加载均默认使用**一档原版**，在 ESC → MODS 中选择二档或三档，再点击 APPLY 应用。新飞矛与护盾版为未完成游戏内验证的实验版。
+提供五个完整模组安装包、源码和打包脚本。飞矛、护盾、RS-67潜行、民主护佑已更新为自由滑条；鱼叉枪保留三档预设版。攻城准备项目已移除。
 
-## 下载
+## 最新下载
 
-| 模组 | 版本 | 下载 |
+| 模组 | 版本 | 完整安装包 |
 | --- | --- | --- |
-| S-11 鱼叉枪（三档预设） | v1.4.0 | [下载完整ZIP](downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip) |
-| 民主护佑（三档预设） | v0.3.0 | [下载完整ZIP](downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip) |
-| FAF-14 飞矛（三档预设，实验版） | v0.1.1 | [下载完整ZIP](downloads/FAF-14-Spear-Three-Tiers-v0.1.1.zip) |
-| SH-32 护盾背包（三档预设，实验版） | v0.1.1 | [下载完整ZIP](downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip) |
+| FAF-14飞矛，自由滑条 | v0.2.0 | [下载ZIP](downloads/FAF-14-Spear-Sliders-v0.2.0.zip) |
+| SH-32护盾背包，自由滑条 | v0.2.0 | [下载ZIP](downloads/SH-32-Shield-Pack-Sliders-v0.2.0.zip) |
+| RS-67空密码潜行，自由滑条 | v0.2.0 | [下载ZIP](downloads/RS-67-Null-Cipher-Stealth-Sliders-v0.2.0.zip) |
+| 民主护佑，自由滑条 | v0.4.0 | [下载ZIP](downloads/Democracy-Protects-Slider-v0.4.0.zip) |
+| S-11鱼叉枪，三档预设 | v1.4.0 | [下载ZIP](downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip) |
 
-下载单个模组 ZIP 后导入 Arsenal。Code → Download ZIP 下载的是源码仓库，不能直接作为模组安装包导入。
+下载上表单个ZIP导入Arsenal，**不用解压**。Code → Download ZIP是源码仓库，不能直接作为模组安装包导入。downloads中旧包供历史参考，不要与同装备新版一起启用。
 
-## 鱼叉枪的三个档位
+## 滑条范围与默认值
 
-| 参数 | 一档：原版（首次默认） | 二档：适度强化 | 三档：单刷强化 |
-| --- | --- | --- | --- |
-| 直击伤害 | 650 | 850 | 1800 |
-| 耐久伤害 | 275 | 400 | 1800 |
-| 四角度穿甲 | AP5 | AP5 | AP6 |
-| 备用弹数 | 12 | 16 | 24 |
-| 毒气状态持续时间 | 6秒 | 6秒 | 10秒 |
-| 混乱状态持续时间 | 5秒 | 5秒 | 9秒 |
-| 攻击范围、换弹机制 | 原版 | 原版 | 原版 |
+所有滑条**首次都在最左原版值**，向右加强；采用新设置键，不继承旧版强化值。已APPLY的设置会保存。
 
-中档是本仓库选定的适度强化方案；高档沿用旧强化版的数值。毒气选项使用游戏已有状态引用，不修改毒气每秒伤害。未新增未经确认的范围参数。
-
-旧版的五项自由调节改为一个“强化档位”选项，选档后一起应用对应数值。备用弹数改变的是容量，已有角色的库存可能需要补给或重新部署刷新。
-
-## 民主护佑的三个档位
-
-| 档位 | 致命伤害存活概率 |
+| 模组 | 可调参数 |
 | --- | --- |
-| 一档：原版（首次默认） | 50% |
-| 二档：提高存活概率 | 80% |
-| 三档：高存活概率 | 90% |
+| 飞矛 | 爆炸普通、耐久伤害各200–8000；AP3–7；内半径1.5–3米、外半径3–12米、冲击波6–18米 |
+| 护盾 | 容量150–1500；恢复速度150–15000；受伤等待60→3秒；破盾等待12→3秒 |
+| RS-67 | 移动噪音减少50%–95%；探测半径减少40%–90% |
+| 民主护佑 | 致命伤害存活概率50%–90%，步长1% |
 
-仅作用于拥有民主护佑被动的护甲。选择并应用后请换下护甲再穿回，或重新部署，刷新角色被动。概率不代表每十次必定存活固定次数。
+护盾等待滑条显示为“缩短多少秒”：0表示原版，越向右等待越短。滑条独立控制对应参数。[详细范围、步长与限制](docs/slider-controls.md)。
 
-## FAF-14飞矛与SH-32护盾背包
+## 依赖
 
-| 飞矛参数 | 一档：原版 | 二档：适度强化 | 三档：单刷强化 |
+所有模组的设置页面需要以下两项，各启用一份：
+
+- **[Bingus Shared Loader v18](https://github.com/CowboyBingus/BingusSharedLoader)**，作者CowboyBingus。
+- **[Mod Options Menu API1](https://github.com/CowboyBingus/ModOptionsMenu)**，当前参考v1.1；[Nexus下载页面](https://www.nexusmods.com/helldivers2/mods/16625)，作者CowboyBingus。
+
+**仅飞矛与护盾额外需要：[HD2Runtime-0.28.1-runtime.zip](https://github.com/SkyeShade/HD2Runtime/releases/download/v0.28.1/HD2Runtime-0.28.1-runtime.zip)**，作者SkyeShade。要下载runtime运行时包，SDK、ModBuilder和源码ZIP不能代替它。RS-67、民主护佑及鱼叉枪不需要HD2Runtime。
+
+依赖单独下载，本仓库不捆绑第三方运行时。若Megapack已提供菜单，避免再启用重复菜单。
+
+## 安装、升级与应用
+
+1. 完全退出游戏，在Arsenal停用同装备旧版mod。
+2. 导入所需最新ZIP，启用菜单和Loader；飞矛、护盾还需启用HD2Runtime。
+3. **Loader放加载顺序最底部**，Purge → Deploy，重启游戏。
+4. ESC → MODS → 对应模组，拉动滑条后点击**APPLY**（键盘Tab）。
+5. 飞矛、护盾重新呼叫新装备；RS-67和民主护佑重新穿戴护甲或重新部署，刷新角色。
+
+只停留在默认值不会强化。恢复原版时将所有滑条拉到最左，APPLY后再刷新装备或护甲。不能撤销其他mod的修改。
+
+## 作用范围与验证状态
+
+飞矛保留原版直击、索敌和导引，只强化爆炸；护盾保持半径1.3米。RS-67作用于所有带“降低特征”被动的护甲；民主护佑只作用于该被动护甲。
+
+当前支持Steam build25480438对应数据。保留构建、数据归属、原版基准及修改后的复核机制；游戏更新或其他mod修改同字段时可能拒绝应用。
+
+**四个滑条版已通过Lua5.1语法编译，尚未进行游戏内效果验证。** 护盾恢复字段上游也标为尚未完成游戏内确认。旧v0.1.1飞矛与护盾日志确认加载和菜单注册成功，不代表当前滑条版的数值已验证。
+
+不能保证飞矛秒杀所有目标、护盾精确3秒充满、潜行完全隐身或民主护佑必定救命。参数作用与日志路径详见[说明](docs/slider-controls.md)。
+
+## 鱼叉枪保留的三档
+
+| 参数 | 原版默认 | 适度强化 | 单刷强化 |
 | --- | --- | --- | --- |
-| 爆炸普通／耐久伤害 | 200／200 | 2000／2000 | 8000／8000 |
-| 爆炸AP直角字段 | 3 | 5 | 7 |
-| 内半径 | 1.5米 | 2.5米 | 3米 |
-| 外半径 | 3米 | 7米 | 12米 |
-| 冲击波半径 | 6米 | 10米 | 18米 |
+| 普通／耐久伤害 | 650／275 | 850／400 | 1800／1800 |
+| 穿甲 | AP5 | AP5 | AP6 |
+| 备用弹数 | 12 | 16 | 24 |
+| 毒气／混乱持续时间 | 6／5秒 | 6／5秒 | 10／9秒 |
 
-飞矛保留原版直击4000普通／4000耐久伤害、AP7，以及原有导引、索敌对象、弹药和换弹。当前HD2Runtime将直击弹丸分支标为PARTIAL且不可写，爆炸分支为RESOLVED，因此只强化已确认的爆炸链。其余三个爆炸角度AP字段保留0；冲击波半径不等于满额伤害半径。不能保证所有可锁定目标一发击杀，扩大范围也会扩大可能伤及自身的区域。
+范围、换弹不变；备弹变化可能需补给或重新部署刷新。
 
-| 护盾参数 | 一档：原版 | 二档：适度强化 | 三档：单刷强化 |
-| --- | --- | --- | --- |
-| 容量 | 150 | 450 | 1500 |
-| 未破盾受伤后的恢复延迟 | 60秒 | 10秒 | 3秒 |
-| 破盾恢复延迟 | 12秒 | 6秒 | 3秒 |
-| 恢复速度 | 150 HP/秒 | 450 HP/秒 | 15000 HP/秒 |
-| 护盾半径 | 1.3米 | 1.3米 | 1.3米 |
+## 源码与打包
 
-第三档的3秒是**开始恢复的延迟**，从空盾充满理论还需0.1秒，实际取决于游戏时序。上游将三个恢复字段标为原生类型与数值关联已确认、游戏内效果未验证；本模组也尚未进行游戏内验证。
+- mods/：各模组最终Lua、manifest及README。
+- downloads/：完整安装包；SHA256SUMS.txt：校验值。
+- `python scripts/build.py`：从当前源码重建最新安装包，输出至build/。
 
-两个新模组均在应用档位后等待写入，再呼叫新装备。现有装备是否重新读取定义未确认。回到一档会通过相同检查恢复本模组拥有的定义值；不覆盖其他模组的冲突数值。查看[参数来源与限制](docs/FAF14-SH32-parameters.md)。
-
-## 必需依赖
-
-- **[Bingus Shared Loader v18](https://github.com/CowboyBingus/BingusSharedLoader)**，作者 CowboyBingus。
-- **[Mod Options Menu v1.1](https://github.com/CowboyBingus/ModOptionsMenu)**，作者 CowboyBingus；[Nexus下载页面](https://www.nexusmods.com/helldivers2/mods/16625)。
-- **仅新飞矛和护盾模组额外需要：[HD2Runtime 0.28.1 / API 1](https://github.com/SkyeShade/HD2Runtime/releases)**，作者 SkyeShade。需下载并导入运行时模组安装包；源码ZIP、SDK、ModBuilder不是运行时安装包。
-
-当前实现使用 Mod Options Menu v1.1 / API 1 接口。新版依赖的兼容性需要另行确认。依赖需单独下载，本仓库提供作者链接。
-
-## 安装和升级
-
-1. 完全退出游戏，在 Arsenal 中停用所更新模组的旧版。
-2. 导入所需的新 ZIP，启用 Mod Options Menu 和 Bingus Shared Loader；飞矛或护盾还需启用HD2Runtime。
-3. **Loader 放在加载顺序底部**，执行 Purge → Deploy。
-4. 启动游戏，在舰船或任务中打开 ESC → MODS，选择档位。
-5. 点击 APPLY 或按菜单提示按键（键盘 Tab）应用。
-
-若 Megapack 已提供菜单，只启用一份 Mod Options Menu。
-
-采用新的菜单设置键，旧版强化数值不会迁移到新版：第一次加载显示一档原版。之后用户选定的档位仍会保存，下次启动恢复该档位；如需回到原版，选择一档并应用。
-
-设置保存于 `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\ModOptionsMenu.values`。
-
-## 游戏版本与验证状态
-
-沿用 Steam build **25480438** 的支持范围。民主护佑保留构建与哈希检查；鱼叉枪保留数据布局和基准数值检查。游戏更新后可能拒绝应用，需要重新适配。
-
-本次修改了菜单预设和默认值，保留原有运行时扫描、数据复核及写入机制。新三档版未进行游戏内验证，不能保证当前游戏构建中的实际表现；建议先在单人或获得同意的私人游戏中使用。
-
-日志：鱼叉枪位于上述 Logs 目录的 `S11SoloSpear.log`，民主护佑位于 `%LOCALAPPDATA%\DemocracyProtects090.log`。
-
-飞矛与护盾由HD2Runtime检查构建、身份、原版基准值和写入后的数据。同一字段有其他mod修改时可能被拒绝。菜单出现只说明设置注册成功，不代表写入成功；查看HD2Runtime日志中的 `mods/luoshuilin/faf14_spear_tiers`、`mods/luoshuilin/sh32_shield_tiers` 与ensure拒绝原因。首次原版没有伤害增强属于预期行为。
-
-## 源码与自行打包
-
-- `mods/`：四个模组的最终 Lua、清单和说明。
-- `downloads/`：完整安装包；`SHA256SUMS.txt`：校验值。
-- 运行 `python scripts/build.py`，生成包位于 `build/`。
-
-共享加载框架和菜单由 CowboyBingus 提供。修改及中文菜单由仓库维护者借助 OpenAI Codex 整理制作。依赖和引用代码的许可条件以各自原项目为准，本仓库未声明统一的 MIT 等许可证。
-
-新飞矛和护盾模组使用SkyeShade的HD2Runtime公开API，不捆绑运行时。数值依据其0.28.1 SDK能力目录；感谢原作者提供可复核的类型与归属证据。
-
-## v0.1.1加载修复
-
-上一版将Loader发行版v18误用于Lua内部版本检查，导致已安装v18仍拒绝加载。已改用官方HD2Runtime包装器的内部版本最低值16。飞矛和护盾还必须安装HD2Runtime运行时，否则没有菜单也不会写入。旧v0.1.0安装包已移除，请使用v0.1.1。
-
-## 当前保留项目与飞矛、护盾安装
-
-攻城准备／AD-49被动叠加项目已移除。飞矛与护盾背包保留v0.1.1；原有鱼叉枪、民主护佑项目继续保留。
-
-安装飞矛、护盾需要以下五项各启用一份：
-
-1. FAF-14-Spear-Three-Tiers-v0.1.1.zip（只用护盾时可不装）。
-2. SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip（只用飞矛时可不装）。
-3. [HD2Runtime-0.28.1-runtime.zip](https://github.com/SkyeShade/HD2Runtime/releases/download/v0.28.1/HD2Runtime-0.28.1-runtime.zip)。
-4. Mod Options Menu API1。
-5. Bingus Shared Loader v18，放加载顺序底部。
-
-全部以ZIP导入Arsenal，停用旧版，Purge → Deploy后重启游戏。在ESC → MODS选择二档或三档并APPLY，再呼叫新飞矛或护盾背包。默认一档原版不会自动强化。
-
-本地2026-10-01最新日志已确认飞矛、护盾和HD2Runtime加载成功，两个菜单选项注册成功。此证据不代表伤害、半径或护盾恢复效果已完成游戏内验证。
+加载框架、菜单由CowboyBingus提供；飞矛、护盾调用SkyeShade的HD2Runtime公开API。RS-67字段参考[Hung1510的Armory Forge](https://github.com/Hung1510/Super-Earth-Armory-Forge)，未捆绑其代码。修改与中文设置由仓库维护者借助OpenAI Codex整理。各依赖遵循各自许可，本仓库未声明统一MIT许可证。

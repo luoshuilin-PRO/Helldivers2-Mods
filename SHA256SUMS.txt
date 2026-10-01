@@ -1,4 +1,8 @@
+a0e3a690af671837a19156630b3df50425be02427e791442428bedf003d8ac26  downloads/Democracy-Protects-Slider-v0.4.0.zip
 8bec85e290ac4f2c3a0b01ebc4562da391afc006a5b9f54c3fb6bb98ac469954  downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip
+b85b882a18dd16212febab44189dedfbd99a2b4d9ac17409b77fcf3f0aa747a7  downloads/FAF-14-Spear-Sliders-v0.2.0.zip
 c06d021757999bbf29be003e294edab6998d659b4ce477bcd317a2cc67ba9515  downloads/FAF-14-Spear-Three-Tiers-v0.1.1.zip
+5277afe996d3c99fbe8f97a7548ba454209ad4bbb22a5bf616df478308821bc9  downloads/RS-67-Null-Cipher-Stealth-Sliders-v0.2.0.zip
 885439d71ea384c9e42d537e78321aef963fd3570d534946dba52865ca99105e  downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip
+653cc67e4b38237517add668e2b5c2158183a69251a3bc482f363375a8807b38  downloads/SH-32-Shield-Pack-Sliders-v0.2.0.zip
 8794c814ca58952425f48c39a61c68995a45250fd52a16c7474c296d0879c158  downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip

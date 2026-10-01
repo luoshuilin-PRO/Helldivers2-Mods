@@ -42,7 +42,6 @@ def archive(name, source):
 PACKAGES = {
     's11-speargun': 'S-11-Speargun-Solo-Enhanced-Menu-v1.3.0.zip',
     'democracy-protects': 'Democracy-Protects-Menu-v0.2.0.zip',
-    'enemy-hp': 'Enemy-HP-With-Names-Menu-v1.1.2.zip',
 }
 
 
@@ -52,9 +51,6 @@ def main():
     for slug, filename in PACKAGES.items():
         folder = ROOT / 'mods' / slug
         files = list(folder.glob('*.lua'))
-        if not files and slug == 'enemy-hp':
-            print('Enemy HP: run scripts/prepare_enemy_hp.py with the original ZIP first.')
-            continue
         if len(files) != 1:
             raise ValueError(f'Expected one final Lua entry in {folder}')
         lua = files[0]
@@ -79,3 +75,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

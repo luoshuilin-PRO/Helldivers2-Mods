@@ -8,8 +8,8 @@
 | --- | --- | --- |
 | S-11 鱼叉枪（三档预设） | v1.4.0 | [下载完整ZIP](downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip) |
 | 民主护佑（三档预设） | v0.3.0 | [下载完整ZIP](downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip) |
-| FAF-14 飞矛（三档预设，实验版） | v0.1.0 | [下载完整ZIP](downloads/FAF-14-Spear-Three-Tiers-v0.1.0.zip) |
-| SH-32 护盾背包（三档预设，实验版） | v0.1.0 | [下载完整ZIP](downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.0.zip) |
+| FAF-14 飞矛（三档预设，实验版） | v0.1.1 | [下载完整ZIP](downloads/FAF-14-Spear-Three-Tiers-v0.1.1.zip) |
+| SH-32 护盾背包（三档预设，实验版） | v0.1.1 | [下载完整ZIP](downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip) |
 
 下载单个模组 ZIP 后导入 Arsenal。Code → Download ZIP 下载的是源码仓库，不能直接作为模组安装包导入。
 
@@ -104,3 +104,7 @@
 共享加载框架和菜单由 CowboyBingus 提供。修改及中文菜单由仓库维护者借助 OpenAI Codex 整理制作。依赖和引用代码的许可条件以各自原项目为准，本仓库未声明统一的 MIT 等许可证。
 
 新飞矛和护盾模组使用SkyeShade的HD2Runtime公开API，不捆绑运行时。数值依据其0.28.1 SDK能力目录；感谢原作者提供可复核的类型与归属证据。
+
+## v0.1.1加载修复
+
+上一版将Loader发行版v18误用于Lua内部版本检查，导致已安装v18仍拒绝加载。已改用官方HD2Runtime包装器的内部版本最低值16。飞矛和护盾还必须安装HD2Runtime运行时，否则没有菜单也不会写入。旧v0.1.0下载仅保留历史记录，请使用v0.1.1。

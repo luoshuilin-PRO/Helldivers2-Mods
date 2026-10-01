@@ -1,4 +1,6 @@
 8bec85e290ac4f2c3a0b01ebc4562da391afc006a5b9f54c3fb6bb98ac469954  downloads/Democracy-Protects-Three-Tiers-v0.3.0.zip
 109ed8b71555f9e921b4bb2fcda89159f69a0f5d5b67853f5511af70cbf679f0  downloads/FAF-14-Spear-Three-Tiers-v0.1.0.zip
+c06d021757999bbf29be003e294edab6998d659b4ce477bcd317a2cc67ba9515  downloads/FAF-14-Spear-Three-Tiers-v0.1.1.zip
 885439d71ea384c9e42d537e78321aef963fd3570d534946dba52865ca99105e  downloads/S-11-Speargun-Three-Tiers-v1.4.0.zip
 471499cd5566c705afc11579c96ab5f93acc0f3ae11b145e825237ba1e8095a2  downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.0.zip
+8794c814ca58952425f48c39a61c68995a45250fd52a16c7474c296d0879c158  downloads/SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip

@@ -1,7 +1,8 @@
 -- HD2-Addon: mods/luoshuilin/sh32_shield_tiers
+-- v0.1.1: Loader Lua ABI version is separate from its release label.
 -- Original preset is the default. No raw addresses or guessed damage owners.
 local loader=rawget(_G,'CowboyBingusModLoader')
-assert(loader and loader.api==1 and type(loader.version)=='number' and loader.version>=18,
+assert(loader and loader.api==1 and type(loader.version)=='number' and loader.version>=16,
     'Requires Bingus Shared Loader v18 / API 1')
 local runtime=require('mods/skyeshade/hd2runtime')
 local minimum='0.28.1'

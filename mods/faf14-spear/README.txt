@@ -1,4 +1,4 @@
-FAF-14 飞矛（三档预设，默认原版）v0.1.0 实验版
+FAF-14 飞矛（三档预设，默认原版）v0.1.1 实验版
 参数（一档／二档／三档）：
 爆炸普通与耐久伤害：200／2000／8000
 爆炸AP直角字段：3／5／7，其余角度字段保留0
@@ -20,3 +20,7 @@ https://github.com/CowboyBingus/BingusSharedLoader
 https://github.com/CowboyBingus/ModOptionsMenu
 https://github.com/SkyeShade/HD2Runtime/releases
 诊断：HD2Runtime日志中的本模组资源名、ensure状态和拒绝原因；菜单出现不代表写入成功。
+
+修复：区分Loader的Lua内部版本与发行版v18，使用HD2Runtime官方包装器的内部最低版本16。
+必须额外安装HD2Runtime-0.28.1-runtime.zip，否则这两个模组仍不能加载。
+官方安装包：https://github.com/SkyeShade/HD2Runtime/releases/download/v0.28.1/HD2Runtime-0.28.1-runtime.zip

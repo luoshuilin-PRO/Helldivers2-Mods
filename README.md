@@ -73,7 +73,7 @@
 
 ## 安装和升级
 
-1. 关闭游戏，在 Arsenal 中停用两个模组的旧版。
+1. 完全退出游戏，在 Arsenal 中停用所更新模组的旧版。
 2. 导入所需的新 ZIP，启用 Mod Options Menu 和 Bingus Shared Loader；飞矛或护盾还需启用HD2Runtime。
 3. **Loader 放在加载顺序底部**，执行 Purge → Deploy。
 4. 启动游戏，在舰船或任务中打开 ESC → MODS，选择档位。
@@ -107,4 +107,20 @@
 
 ## v0.1.1加载修复
 
-上一版将Loader发行版v18误用于Lua内部版本检查，导致已安装v18仍拒绝加载。已改用官方HD2Runtime包装器的内部版本最低值16。飞矛和护盾还必须安装HD2Runtime运行时，否则没有菜单也不会写入。旧v0.1.0下载仅保留历史记录，请使用v0.1.1。
+上一版将Loader发行版v18误用于Lua内部版本检查，导致已安装v18仍拒绝加载。已改用官方HD2Runtime包装器的内部版本最低值16。飞矛和护盾还必须安装HD2Runtime运行时，否则没有菜单也不会写入。旧v0.1.0安装包已移除，请使用v0.1.1。
+
+## 当前保留项目与飞矛、护盾安装
+
+攻城准备／AD-49被动叠加项目已移除。飞矛与护盾背包保留v0.1.1；原有鱼叉枪、民主护佑项目继续保留。
+
+安装飞矛、护盾需要以下五项各启用一份：
+
+1. FAF-14-Spear-Three-Tiers-v0.1.1.zip（只用护盾时可不装）。
+2. SH-32-Shield-Pack-Three-Tiers-v0.1.1.zip（只用飞矛时可不装）。
+3. [HD2Runtime-0.28.1-runtime.zip](https://github.com/SkyeShade/HD2Runtime/releases/download/v0.28.1/HD2Runtime-0.28.1-runtime.zip)。
+4. Mod Options Menu API1。
+5. Bingus Shared Loader v18，放加载顺序底部。
+
+全部以ZIP导入Arsenal，停用旧版，Purge → Deploy后重启游戏。在ESC → MODS选择二档或三档并APPLY，再呼叫新飞矛或护盾背包。默认一档原版不会自动强化。
+
+本地2026-10-01最新日志已确认飞矛、护盾和HD2Runtime加载成功，两个菜单选项注册成功。此证据不代表伤害、半径或护盾恢复效果已完成游戏内验证。
